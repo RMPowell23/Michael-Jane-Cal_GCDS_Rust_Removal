@@ -1,2 +1,66 @@
 print('hello world')
 print('hi')
+
+
+#cal's function
+def getZipCode(z1, z2):
+    
+    hops = 3
+
+    return hops   
+
+
+#micheal's function
+def get_Type(length, height, thickness):
+    
+   
+    
+    return type
+
+
+def main():
+    
+    
+    
+    length = input('What is the length of your piece of mail? Please enter a number in inches. (Length is the side parallel to the address)')
+    
+    height = input ('What is the height of your piece of mail? Please enter a number in inches.')
+    
+    thickness = input('How thick is your piece of mail? Please enter a number in inches')
+    
+    starting_zip = input("What is the starting zip code of your piece of mail?")
+    
+    ending_zip = input('What is the ending zip code of your piece of mail?')
+        
+    #calling in the functions
+    type = get_Type(length, height, thickness)
+    hops = getZipCode(12345, 67890)
+    
+    if type == 1:
+        cost = .03 * hops + .20
+        
+    elif type == 2:
+        cost = .03 * hops + .37 
+    
+    elif type == 3:
+        cost = .04 * hops + .37
+        
+    elif type == 4:
+        cost = .05 * hops + .60
+        
+    elif type == 5:
+        cost = .25 * hops + 2.95
+        
+    elif type == 6:
+        cost = .35 * hops + 3.95
+    
+    else :
+        print('The size inputed is unavailable.')
+        quit()
+    
+    print("the cost is:" + cost)
+    
+    
+    
+if __name__ == '__main__':
+    main()
