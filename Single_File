@@ -1,64 +1,235 @@
-print('hello world')
-print('hi')
+'''
+Author: Michael Powell, Jane Tortorella, Cal Cunnion
+Narrative: 
+    This program provides a shipping cost for mail given its dimensions and the number of zipcodes it passes through.
 
+Log: 
+    Log 1.0/Initital Test 9/14/2021
 
-#cal's function
-def getZipCode(z1, z2):
+Bugs:
+    - 
+
+Features: 
+    - 
+
+Created on Sep 10, 2021
+
+@author: jtortorella23
+'''
+
+# Cal's function: Provides number of zones a package passes through given an initial and final zipcode
     
-    hops = 3
+def zipcode_conditions(zips) :
+   
+        if zips > 1 and zips < 6999:
+            zips = 1
+           
+        elif zips > 7000 and zips <= 19999:
+            zips = 2
+        elif zips > 20000 and zips <= 35999:
+            zips = 3
+        elif zips > 36000 and zips <= 62999:
+            zips = 4
+        elif zips > 63000 and zips <= 84999:
+            zips = 5
+        elif zips > 85000 and zips <= 99999:
+            zips = 6
+        return zips
 
-    return hops   
+   
+def get_Hops(zip_initial, zip_final):
 
+    zone_initial = zipcode_conditions(zip_initial)
+    
+    zone_final = zipcode_conditions(zip_final)
 
-#micheal's function
+    hops = zone_final - zone_initial
+
+# Micheal's function: Provides the class of a package given dimensions (length, height, and thickness)
 def get_Type(length, height, thickness):
     
-   
+    # Perimeter
+    perimeter = (2 * length) + (2 * thickness)
+    
+    # Class: Regular Post Card (type = 1)
+    if length >= 3.5 and length <= 4.25 and height >= 3.5 and height <= 6 and thickness >= 0.007 and thickness <= 0.016 :
+        type = 1
+        
+    # Class: Large Post Card (type = 2)
+    elif length >= 4.25 and length <= 6 and height >= 5 and height <= 11.5 and thickness >= 0.016 and thickness <= 0.25 :
+        type = 2
+    
+    # Class: Envelope (type = 3)
+    elif length >= 3.5 and length <= 6.125 and height >= 5 and height <= 11.5 and thickness >= 0.016 and thickness <= 0.25 :
+        type = 3
+    
+    # Class: Large Envelope (type = 4)
+    elif length >= 6.125 and length <= 24 and height >= 11 and height <= 18 and thickness >= 0.25 and thickness <= 0.5 :
+        type = 4
+        
+    # Class: Package (type = 5)
+    elif length > 24 and height > 18 and thickness > 0.5 and perimeter <= 84 :
+        type = 5 
+
+    # Class: Large Package (type = 6)
+    elif length > 24 and height > 18 and thickness > 0.5 and perimeter > 84 and perimeter <= 130 :
+        type = 6
+    
+    # Class: Unavailable (type = 7)
+    else :
+        type = 7
     
     return type
 
 
 def main():
     
-    
-    
-    length = input('What is the length of your piece of mail? Please enter a number in inches. (Length is the side parallel to the address)')
-    
-    height = input ('What is the height of your piece of mail? Please enter a number in inches.')
-    
-    thickness = input('How thick is your piece of mail? Please enter a number in inches')
-    
-    starting_zip = input("What is the starting zip code of your piece of mail?")
-    
-    ending_zip = input('What is the ending zip code of your piece of mail?')
+    # Restarting the program loop 
+    restart = 'yes'
+    while restart == 'yes' or restart == 'y' :
         
-    #calling in the functions
-    type = get_Type(length, height, thickness)
-    hops = getZipCode(12345, 67890)
-    
-    if type == 1:
-        cost = .03 * hops + .20
+        # Description of Program
+        print('This program provides a shipping cost for mail given its dimensions and the number of zipcodes it passes through.')
         
-    elif type == 2:
-        cost = .03 * hops + .37 
+        # Length Input
+        while True: 
+            length = input('What is the length of the piece of mail?')
+            
+            try: 
+                length = float(length)
+                
+                if length > 0 :
+                    break
     
-    elif type == 3:
-        cost = .04 * hops + .37
+                else :
+                    print('Please insert a positive number length.')
+                    continue
+            
+            except: 
+                print('Please insert an appropriate length that consists of a positive number.')
+                continue
         
-    elif type == 4:
-        cost = .05 * hops + .60
         
-    elif type == 5:
-        cost = .25 * hops + 2.95
+        # Height Input
+        while True: 
+            height = input('What is the height of the piece of mail?')
+            
+            try :
+                height = float(height)
+                
+                if height > 0:
+                    break
+                
+                else :
+                    print('Please insert a positive number height.')
+                    continue
+            
+            except :
+                print('Please insert an appropriate height that consists of a positive number.')
+                continue
         
-    elif type == 6:
-        cost = .35 * hops + 3.95
-    
-    else :
-        print('The size inputed is unavailable.')
-        quit()
-    
-    print("the cost is:" + cost)
+        
+        # Thickness Input
+        while True :
+            thickness = input('What is the thickness of the piece of mail?')
+            
+            try :
+                thickness = float(thickness)
+                
+                if thickness > 0 :
+                    break
+                
+                else :
+                    print('Please insert a positive number thickness.')
+                    continue
+                
+            except :
+                print('Please insert an appropriate thickness that consists of a positive number.')
+                continue
+        
+        
+        # Executing the type function
+        
+        type = get_Type(length, height, thickness)
+        
+        
+        # Initial and Final Zipcode Input
+        while True :
+            starting_zip = input("What is the starting zip code of your piece of mail?")
+            ending_zip = input('What is the ending zip code of your piece of mail?')
+            
+            if len(starting_zip) != 5 or len(ending_zip) != 5 :
+                print('Please insert a zipcode of five digits!')
+                continue
+            
+            try :
+                starting_zip = int(starting_zip)
+                ending_zip = int(ending_zip)
+                
+                if starting_zip > 0 and ending_zip > 0 :
+                    break
+                
+                else :
+                    print('Please insert a positive integer starting zipcode.')
+            
+            except :
+                print('Please insert an appropriate thickness that consists of a positive integer.')
+                continue
+            
+            
+        # Executing the get zipcode function
+        hops = get_ZipCode(starting_zip, ending_zip)
+        
+        # Regular post card
+        if type == 1:
+            cost = .03 * hops + .20
+        
+        # Large post card    
+        elif type == 2:
+            cost = .03 * hops + .37 
+       
+        # Envelope 
+        elif type == 3:
+            cost = .04 * hops + .37
+        
+        # Large Envelope    
+        elif type == 4:
+            cost = .05 * hops + .60
+            
+        # Package
+        elif type == 5:
+            cost = .25 * hops + 2.95
+        
+        # Large package    
+        elif type == 6:
+            cost = .35 * hops + 3.95
+        
+        elif type == 7 :
+            print('The size inputed is unavailable to mail. Please give appropriate dimensions.')
+            
+        if type != 7 :
+            print('The cost of the mail: ' + '${:,.2f}'.format(cost))
+
+        
+        # Play again option
+        
+        while True :
+            
+            restart = input('\nDo you wish to use the program again?\n')
+            restart = restart.lower()
+            restart = restart.strip()
+            
+            if restart == 'yes' or restart == 'y' :
+                print('The program will restart!')
+                break
+            
+            elif restart == 'no' or restart == 'n' :
+                print('Thanks for choosing this mailing company.')
+                print('The program has been terminated...!')
+                break
+            
+            else :
+                print('Please insert a "yes" or "no" answer!')
     
     
     
