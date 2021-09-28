@@ -45,11 +45,26 @@ def get_Hops(zip_initial, zip_final):
 
     hops = zone_final - zone_initial
 
-# Micheal's function: Provides the class of a package given dimensions (length, height, and thickness)
+
 def get_Type(length, height, thickness):
+    """ Summary and Description of Function
+    
+        This function uses the length, height, and thickness dimensions to return a class for the mail. 
+        If statements are used to specify the dimension conditions for the mail, which includes perimeter for package and large package.
+        
+        Parameters: 
+        
+        length (float) : The length of the mail
+        height (float): The height of the mail.
+        thickness (float): The thickness of the mail.
+        
+        Returns:
+        type (int): The type of the mail that ranges from six options. The seventh option would be unavailable mail.
+        
+    """
     
     # Perimeter
-    perimeter = (2 * length) + (2 * thickness)
+    perimeter = 2 * (length + height)
     
     # Class: Regular Post Card (type = 1)
     if length >= 3.5 and length <= 4.25 and height >= 3.5 and height <= 6 and thickness >= 0.007 and thickness <= 0.016 :
@@ -68,11 +83,11 @@ def get_Type(length, height, thickness):
         type = 4
         
     # Class: Package (type = 5)
-    elif length > 24 and height > 18 and thickness > 0.5 and perimeter <= 84 :
+    elif length > 24 or height > 18 or thickness > 0.5 and perimeter <= 84 :
         type = 5 
 
     # Class: Large Package (type = 6)
-    elif length > 24 and height > 18 and thickness > 0.5 and perimeter > 84 and perimeter <= 130 :
+    elif length > 24 or height > 18 or thickness > 0.5 and perimeter > 84 and perimeter <= 130 :
         type = 6
     
     # Class: Unavailable (type = 7)
